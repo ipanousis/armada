@@ -1,9 +1,0 @@
-#HOST_IP=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`;
-#docker run -d -e HOST_IP=$HOST_IP -e ETCD_HOST=$HOST_IP:4001 -v /var/run/docker.sock:/var/run/docker.sock --name docker_register -t ipanousis/docker-register
-docker_register:
-  image: ipanousis/docker-register
-  volumes:
-    - /var/run/docker.sock:/var/run/docker.sock
-  environment:
-    - HOST_IP=10.148.93.43
-    - ETCD_HOST=10.148.93.43:4001
