@@ -1,0 +1,3 @@
+#!/bin/bash
+[[ -z $1 ]] && echo "./boot-coreos <name>" && exit 1
+gcloud compute instances create $1 --image coreos --machine-type f1-micro --metadata-from-file user-data=coreos/cloud-coreos.yml

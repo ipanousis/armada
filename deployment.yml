@@ -1,0 +1,4 @@
+"version": 1
+"nodes":
+  "172.28.128.3": ["etcd"]
+  "172.28.128.4": ["hipache_redis"]

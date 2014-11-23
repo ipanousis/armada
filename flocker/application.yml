@@ -1,0 +1,17 @@
+"version": 1
+"applications":
+  "etcd":
+    "image": "quay.io/coreos/etcd:v0.4.6"
+    "ports":
+    - "internal": 7001
+      "external": 7001
+    - "internal": 4001
+      "external": 4001
+  "elasticsearch":
+    "image": "dockerfile/elasticsearch"
+    "ports":
+    - "internal": 9200
+      "external": 9200
+    - "internal": 9300
+      "external": 9300
+
