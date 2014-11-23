@@ -1,0 +1,11 @@
+[Unit]
+Description=hipache
+
+[Service]
+EnvironmentFile=/etc/environment
+TimeoutStartSec=0
+ExecStart=/usr/bin/hipache --config /etc/hipache.json
+
+[Install]
+WantedBy=multi-user.target
+
