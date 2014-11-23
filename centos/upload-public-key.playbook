@@ -1,0 +1,12 @@
+---
+- hosts: flocker
+  remote_user: root
+  vars:
+    ansible_ssh_pass: root
+  tasks:
+  - name: create .ssh directory
+    shell: mkdir -p /root/.ssh
+  - name: upload public key
+    copy: src=~/.ssh/id_rsa.pub dest=/root/.ssh/control_rsa.pub
+  - name: append public key
+    shell: cat /root/.ssh/control_rsa.pub >> /root/.ssh/authorized_keys && rm -f /root/.ssh/control_rsa.pub

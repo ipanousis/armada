@@ -28,12 +28,16 @@ FLOCKER CLUSTER SETUP
 [flocker:vars]
 ansible_ssh_user=root
 ```
-* Modify private network interface of cluster in these files, e.g. ansible_enp0s8.ipv4.address for virtualbox:
+* Modify private network interface of cluster in these files;
 ```
 containers/docker_register/docker_register.playbook
 containers/hipache/hipache.playbook
 ```
-This network should be the same as the network used in ~/.ansible_hosts.
+It is ansible_enp0s8.ipv4.address for virtualbox, but it will be ansible_eth0 or ansible_eth1 in most cases. This network should be the same as the network used in ~/.ansible_hosts.
+* Upload public key
+```
+ansible-playbook centos/upload-public-key.playbook
+```
 * Flocker deploy etcd
 ```
 flocker-deploy deployment.yml containers/etcd/fig.yml
