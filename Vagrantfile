@@ -10,7 +10,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 
-FLOCKER_VMS=["flocker-1","flocker-2"]
+FLOCKER_VMS=["flocker-1","flocker-2","flocker-3"]
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
