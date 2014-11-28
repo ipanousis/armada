@@ -1,0 +1,8 @@
+etcd:
+  image: quay.io/coreos/etcd:v0.4.6
+  ports:
+    - "4001:4001"
+hipache_redis:
+  image: dockerfile/redis
+  ports:
+    - "6379:6379"

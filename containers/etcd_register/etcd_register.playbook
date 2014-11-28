@@ -2,7 +2,7 @@
 - hosts: flocker
   remote_user: root
   vars:
-    unit: docker_register
+    unit: etcd_register
     private_ipv4_address: "{{ ansible_enp0s8.ipv4.address }}"
   tasks:
   - name: place the unit

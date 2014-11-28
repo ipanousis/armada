@@ -30,37 +30,30 @@ ansible_ssh_user=root
 ```
 * Modify private network interface of cluster in these files;
 ```
-containers/docker_register/docker_register.playbook
+containers/etcd_register/etcd_register.playbook
 containers/hipache/hipache.playbook
 ```
 It is *ansible_enp0s8.ipv4.address* for virtualbox, but it will be *ansible_[eth0|eth1].ipv4.address* in most cases. This network should be the same as the network previously setup in ~/.ansible_hosts.
 * Upload public key
 ```
-$ ansible-playbook centos/upload-public-key.playbook
+$ ansible-playbook centos/virtualbox-ssh-bootstrap.playbook
 ```
-* Flocker deploy etcd
+* Flocker deploy etcd and hipache's redis
 ```
-$ flocker-deploy deployment.yml containers/etcd/fig.yml
+$ rm application.yml ; cat containers/etcd/fig.yml containers/hipache_redis/fig.yml >> application.yml
+$ flocker-deploy deployment.yml application.yml
 ```
-* Install docker-register on the cluster
+* Install etcd register, redis register and hipache on the cluster
 ```
-$ ansible-playbook containers/docker_register/docker_register.playbook
-```
-* Add "hipache_redis" to one of the nodes in deployment.yml
-* Flocker deploy hipache's redis
-```
-$ flocker-deploy deployment.yml containers/hipache_redis/fig.yml
-```
-* Install hipache on the cluster
-```
+$ ansible-playbook containers/etcd_register/etcd_register.playbook
+$ ansible-playbook containers/redis_register/redis_register.playbook
 $ ansible-playbook containers/hipache/hipache.playbook
 ```
 
-TODO:
 
------ TRIGGER THIS WHEN ETCD IS UPDATED BY DOCKER-GEN ------
+GOOGLE PROVIDER SETUP
+=====
 
-redis-cli -h flocker.kalamia.in rpush "frontend:etcd.flocker.kalamia.in" "etcd"
-redis-cli -h flocker.kalamia.in rpush "frontend:etcd.flocker.kalamia.in" "http://flocker.kalamia.in:4001"
-
------ TRIGGER THIS WHEN ETCD IS UPDATED BY DOCKER-GEN ------
+```
+$ vagrant plugin install vagrant-google
+```

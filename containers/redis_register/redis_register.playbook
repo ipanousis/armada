@@ -1,0 +1,11 @@
+---
+- hosts: flocker
+  remote_user: root
+  vars:
+    unit: redis_register
+    private_ipv4_address: "{{ ansible_enp0s8.ipv4.address }}"
+  tasks:
+  - name: place the unit
+    template: src=./{{ unit }}.service dest=/usr/lib/systemd/system/{{ unit }}.service
+  - name: enable and start the unit
+    shell: systemctl enable {{ unit }} && systemctl daemon-reload && systemctl restart {{ unit }}

@@ -1,0 +1,11 @@
+---
+- hosts: flocker
+  remote_user: ypanousi
+  private_key_file: ~/.ssh/google_compute_engine
+  tasks:
+  - name: create .ssh directory
+    shell: sudo mkdir -p /root/.ssh
+  - name: upload public key
+    copy: src=~/.ssh/id_rsa.pub dest=/tmp/control_rsa.pub
+  - name: append public key
+    shell: sudo mv /tmp/control_rsa.pub /root/.ssh/authorized_keys

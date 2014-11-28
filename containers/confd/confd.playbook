@@ -1,8 +1,0 @@
----
-- hosts: flocker
-  remote_user: root
-  tasks:
-  - name: create config directories
-    shell: mkdir -p /etc/confd/{conf.d,templates}
-  - name: place the configuration for updating redis
-    copy: src=./sync_etcd_with_redis.toml dest=/etc/confd/conf.d/sync_etcd_with_redis.toml
