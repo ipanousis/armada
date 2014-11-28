@@ -13,20 +13,24 @@ ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 FLOCKER_VMS=["flocker-1","flocker-2"]
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-
   FLOCKER_VMS.each do |node_name|
     config.vm.define node_name do |node|
 
       node.vm.hostname = node_name
-      node.vm.box = "gce"
-      #node.vm.network "private_network", type: "dhcp"
+      
+      #node.vm.box = "chef/centos-7.0" # for virtualbox
+      #node.vm.box = "gce"             # for google
+      #node.vm.box = nil               # for docker
 
-      config.vm.provider :virtualbox do |vb, override|
+      node.vm.synced_folder "./", "/vagrant", disabled: true
+
+      node.vm.provider :virtualbox do |vb, override|
         override.vm.box = "chef/centos-7.0"
         override.vm.box_version = "= 1.0.0"
+        override.vm.network "private_network", type: "dhcp"
       end
 
-      config.vm.provider :google do |google, override|
+      node.vm.provider :google do |google, override|
 
         override.ssh.pty = true
         override.ssh.username = "ypanousi"
@@ -45,7 +49,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         end
       end
 
-      config.vm.provision "shell", path: "centos/cloud-centos-7.sh"
+      node.vm.provider :docker do |d, override|
+        override.vm.box = nil
+        override.ssh.username = "root"
+        override.ssh.password = "redhat"
+        d.image = "centos7-vagrant"
+        d.privileged = true
+        d.has_ssh = true
+      end
+
+      node.vm.provision "shell", path: "centos/cloud-centos-7.sh"
 
     end
   end
