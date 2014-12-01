@@ -2,7 +2,7 @@
 - hosts: flocker
   remote_user: root
   vars:
-    private_ipv4_address: "{{ ansible_enp0s8.ipv4.address }}"
+    private_ipv4_address: "{{ ansible_eth0.ipv4.address }}" # virtualbox: enp0s8, google: eth0
     unit: hipache
   tasks:
   - name: install npm and hipache

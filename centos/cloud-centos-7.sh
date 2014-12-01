@@ -5,9 +5,10 @@ systemctl enable docker
 systemctl restart docker
 
 # enable root login
-echo "root:root" | chpasswd
+echo "root:kattlefish" | chpasswd
 sed -i 's/PermitRootLogin .*/PermitRootLogin yes/g' /etc/ssh/sshd_config
-service sshd restart
+sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+systemctl restart sshd
 
 # install zfs for flocker
 KERNEL_RELEASE=`uname -r`

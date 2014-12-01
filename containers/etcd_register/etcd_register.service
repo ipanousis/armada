@@ -6,8 +6,8 @@ After=docker.service
 EnvironmentFile=/etc/environment
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker rm -f etcd_register
-ExecStartPre=/usr/bin/docker pull ipanousis/armadaetcd-register
-ExecStart=/usr/bin/docker run --name etcd_register -e HOST_IP={{ private_ipv4_address }} -e ETCD_HOST={{ private_ipv4_address }}:4001 -v /var/run/docker.sock:/var/run/docker.sock ipanousis/armada-etcd-register
+ExecStartPre=/usr/bin/docker pull ipanousis/armada-etcd-register
+ExecStart=/usr/bin/docker run --privileged --name etcd_register -e HOST_IP={{ private_ipv4_address }} -e ETCD_HOST={{ private_ipv4_address }}:4001 -v /var/run/docker.sock:/var/run/docker.sock ipanousis/armada-etcd-register
 ExecStop=/usr/bin/docker stop etcd_register
 
 [Install]

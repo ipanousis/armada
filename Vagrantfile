@@ -19,7 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       node.vm.hostname = node_name
       
       #node.vm.box = "chef/centos-7.0" # for virtualbox
-      #node.vm.box = "gce"             # for google
+      node.vm.box = "gce"             # for google
       #node.vm.box = nil               # for docker
 
       node.vm.synced_folder "./", "/vagrant", disabled: true
@@ -33,12 +33,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       node.vm.provider :google do |google, override|
 
         override.ssh.pty = true
-        override.ssh.username = "ypanousi"
-        override.ssh.private_key_path = "/home/ypanousi/.ssh/google_compute_engine"
+        override.ssh.username = "ypanousi" # YOUR LOCAL USERNAME
+        override.ssh.private_key_path = "/home/ypanousi/.ssh/google_compute_engine" # YOUR GCE PRIVATE SSH KEY
 
-        google.google_project_id = "oceanic-cache-718"
-        google.google_client_email = "137500756124-el23ub9qhimvbm48tbfdoheqhmmgtr5d@developer.gserviceaccount.com"
-        google.google_key_location = "/home/ypanousi/Downloads/elastic-search-f96b11d24423.p12"
+        google.google_project_id = "oceanic-cache-718" # YOUR GCE PROJECT ID
+        google.google_client_email = "137500756124-el23ub9qhimvbm48tbfdoheqhmmgtr5d@developer.gserviceaccount.com" # YOUR GCE SERVICE ACCOUNT EMAIL
+        google.google_key_location = "/home/ypanousi/projects/armada/elastic-search-f96b11d24423.p12" # YOUR GCE SERVICE ACCOUNT KEY
 
         google.zone = "europe-west1-a"
         google.zone_config "europe-west1-a" do |zone1a|
@@ -49,11 +49,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         end
       end
 
+      # flocker installation fails on docker so far, due to systemd
       node.vm.provider :docker do |d, override|
         override.vm.box = nil
         override.ssh.username = "root"
-        override.ssh.password = "redhat"
-        d.image = "centos7-vagrant"
+        override.ssh.password = "kattlefish"
+        d.image = "vagrant-centos7"
         d.privileged = true
         d.has_ssh = true
       end

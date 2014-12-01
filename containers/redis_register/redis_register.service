@@ -7,7 +7,7 @@ EnvironmentFile=/etc/environment
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker rm -f redis_register
 ExecStartPre=/usr/bin/docker pull ipanousis/armada-redis-register
-ExecStart=/usr/bin/docker run --name redis_register -e HOST_IP={{ private_ipv4_address }} -e REDIS_HOST={{ private_ipv4_address }}:6379 -v /var/run/docker.sock:/var/run/docker.sock ipanousis/armada-redis-register
+ExecStart=/usr/bin/docker run --privileged --name redis_register -e HOST_IP={{ private_ipv4_address }} -e REDIS_HOST={{ private_ipv4_address }}:6379 -v /var/run/docker.sock:/var/run/docker.sock ipanousis/armada-redis-register
 ExecStop=/usr/bin/docker stop redis_register
 
 [Install]
