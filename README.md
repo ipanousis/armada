@@ -45,7 +45,8 @@ containers/hipache/hipache.playbook
 Project is set up for Google Compute Engine so it uses *eth0* by default. It is *enp0s8* for virtualbox.
 * Upload public key
 ```
-$ ansible-playbook centos/ssh-bootstrap.playbook
+$ ansible-playbook centos/control-ssh-bootstrap.playbook
+$ ansible-playbook centos/flocker-ssh-bootstrap.playbook
 ```
 * Flocker deploy etcd and hipache's redis
 ```

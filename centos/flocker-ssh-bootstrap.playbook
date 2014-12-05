@@ -1,0 +1,20 @@
+---
+- hosts: flocker
+  remote_user: root
+  vars:
+    ansible_ssh_pass: kattlefish
+  tasks:
+  - name: generate keypair
+    shell: rm -rf /root/.ssh/id_rsa* ; ssh-keygen -f /root/.ssh/id_rsa -N ""
+  - name: clean up locally (before)
+    local_action: shell rm -rf flocker_ssh_keys
+  - name: download public key
+    fetch: src=/root/.ssh/id_rsa.pub dest=flocker_ssh_keys
+  - name: locally merge all public keys
+    local_action: shell cat flocker_ssh_keys/*/root/.ssh/id_rsa.pub > flocker_ssh_keys/flocker_authorized_keys
+  - name: upload to all flocker nodes
+    copy: src=flocker_ssh_keys/flocker_authorized_keys dest=/root/.ssh/flocker_authorized_keys
+  - name: populate authorized keys
+    shell: cat /root/.ssh/flocker_authorized_keys >> /root/.ssh/authorized_keys
+  - name: clean up locally (after)
+    local_action: shell rm -rf flocker_ssh_keys
