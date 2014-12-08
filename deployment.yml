@@ -1,4 +1,4 @@
 "version": 1
 "nodes":
-  "flocker-1.kalamia.in": ["etcd"]
-  "flocker-2.kalamia.in": ["hipache_redis"]
+  "104.155.1.100": ["etcd", "armada"]
+  "146.148.123.215": ["hipache_redis"]

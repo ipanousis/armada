@@ -1,0 +1,10 @@
+---
+- hosts: flocker
+  remote_user: root
+  vars:
+    unit: armada_rest
+  tasks:
+  - name: place the unit
+    template: src=./{{ unit }}.service dest=/usr/lib/systemd/system/{{ unit }}.service
+  - name: enable and start the unit
+    shell: systemctl enable {{ unit }} && systemctl daemon-reload && systemctl restart {{ unit }}

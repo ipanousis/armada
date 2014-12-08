@@ -48,9 +48,9 @@ Project is set up for Google Compute Engine so it uses *eth0* by default. It is 
 $ ansible-playbook centos/control-ssh-bootstrap.playbook
 $ ansible-playbook centos/flocker-ssh-bootstrap.playbook
 ```
-* Flocker deploy etcd and hipache's redis
+* Flocker deploy etcd, hipache's redis and armada-rest RESTful deployment interface
 ```
-$ rm application.yml ; cat containers/etcd/fig.yml containers/hipache_redis/fig.yml >> application.yml
+$ rm application.yml ; cat containers/etcd/fig.yml containers/hipache_redis/fig.yml containers/armada_rest/fig.yml >> application.yml
 $ flocker-deploy deployment.yml application.yml
 ```
 * Install etcd register, redis register and hipache on the cluster

@@ -1,0 +1,14 @@
+[Unit]
+Description=armada-rest
+After=docker.service
+
+[Service]
+EnvironmentFile=/etc/environment
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker rm -f armada
+ExecStartPre=/usr/bin/docker pull ipanousis/armada-rest
+ExecStart=/usr/bin/docker run --name armada --net host ipanousis/armada-rest
+ExecStop=/usr/bin/docker stop armada
+
+[Install]
+WantedBy=multi-user.target
