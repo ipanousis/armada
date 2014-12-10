@@ -1,4 +1,0 @@
-armada:
-  image: ipanousis/armada-rest
-  ports: ["5000"]
-  net: "host"
