@@ -10,7 +10,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 
-FLOCKER_VMS=["flocker-1","flocker-2"]
+FLOCKER_VMS=["flocker-nimbus-1","flocker-nimbus-2"]
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   FLOCKER_VMS.each do |node_name|
@@ -19,7 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       node.vm.hostname = node_name
       
       #node.vm.box = "chef/centos-7.0" # for virtualbox
-      node.vm.box = "gce"             # for google
+      #node.vm.box = "gce"             # for google
       #node.vm.box = nil               # for docker
 
       node.vm.synced_folder "./", "/vagrant", disabled: true

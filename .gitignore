@@ -1,2 +1,4 @@
 flocker.hosts
+.idea
 .vagrant
+*.p12

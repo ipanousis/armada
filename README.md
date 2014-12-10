@@ -53,6 +53,11 @@ $ ansible-playbook centos/flocker-ssh-bootstrap.playbook
 $ rm application.yml ; cat containers/etcd/fig.yml containers/hipache_redis/fig.yml containers/armada_rest/fig.yml >> application.yml
 $ flocker-deploy deployment.yml application.yml
 ```
+* [Optional] If using armada-rest on top of armada, then at this stage you should upload the started flocker container definitions to etcd:
+```
+$ curl -L -XPUT flocker.kalamia.in:4001/v2/keys/flocker/applications/definitions/etcd          -d value="`cat containers/etcd/fig.yml`"
+$ curl -L -XPUT flocker.kalamia.in:4001/v2/keys/flocker/applications/definitions/hipache_redis -d value="`cat containers/hipache_redis/fig.yml`"
+```
 * Install etcd register, redis register and hipache on the cluster
 ```
 $ ansible-playbook containers/etcd_register/etcd_register.playbook
@@ -60,7 +65,7 @@ $ ansible-playbook containers/redis_register/redis_register.playbook
 $ ansible-playbook containers/hipache/hipache.playbook
 ```
 
-* Then, for example, append these lines to application.yml
+* Then you can either: append these lines to application.yml
 ```
 elasticsearch:
   image: dockerfile/elasticsearch
@@ -73,6 +78,8 @@ elasticsearch:
 $ flocker-deploy deployment.yml application.yml
 ```
 * and as soon as that commands finishes, within a few seconds, you'll have a elasticsearch node accessible at "http://elasticsearch.your.own.domain"
+* Otherwise you can use armada-rest...
+
 
 GOOGLE PROVIDER SETUP
 =====
