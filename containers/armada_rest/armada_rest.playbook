@@ -4,6 +4,10 @@
   vars:
     unit: armada_rest
   tasks:
+  - name: create configuration directory
+    shell: mkdir -p /etc/armada-rest
+  - name: place the configuration
+    copy: src={{ armada_rest_configuration_file }} dest=/etc/armada-rest/armada-rest.properties
   - name: place the unit
     template: src=./{{ unit }}.service dest=/usr/lib/systemd/system/{{ unit }}.service
   - name: enable and start the unit
