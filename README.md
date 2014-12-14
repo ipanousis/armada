@@ -1,3 +1,10 @@
+Overview
+=====
+
+This project sets up a flocker cluster (https://docs.clusterhq.com/en/latest/) on CentOS with registering containers on etcd (https://github.com/coreos/etcd) and exposing containers on sub-domain host names using hipache (https://github.com/hipache/hipache).
+
+Optionally, a RESTful interface has been written (https://github.com/ipanousis/armada-rest) for easy of interaction with the flocker-deploy function.
+
 Pre-requisites for the control host
 =====
 
