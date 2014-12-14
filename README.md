@@ -1,7 +1,9 @@
 Overview
 =====
 
-This project sets up a flocker cluster (https://docs.clusterhq.com/en/latest/) on CentOS with registering containers on etcd (https://github.com/coreos/etcd) and exposing containers on sub-domain host names using hipache (https://github.com/hipache/hipache).
+This project sets up a flocker cluster (https://docs.clusterhq.com/en/latest/) on CentOS with registering containers on etcd (https://github.com/coreos/etcd) and exposing public containers ports on sub-domain host names using hipache (https://github.com/hipache/hipache).
+
+E.g. if a container named 'elasticsearch-1' is exposing interla port 9200, then that port will be available at http://elasticsearch-1.your-own-public-domain.com
 
 Optionally, a RESTful interface has been written (https://github.com/ipanousis/armada-rest) for easy of interaction with the flocker-deploy function.
 
@@ -24,7 +26,6 @@ $ pip install --quiet https://storage.googleapis.com/archive.clusterhq.com/downl
 
 FLOCKER CLUSTER SETUP
 =====
-
 * vagrant up
 
 * Modify all references to "flocker.kalamia.in" in this codebase (a 'sed' command should do the trick) to be "your.own.domain" and populate your DNS server with:
