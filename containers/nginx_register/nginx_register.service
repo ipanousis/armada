@@ -7,7 +7,7 @@ EnvironmentFile=/etc/environment
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker rm -f nginx_register
 ExecStartPre=/usr/bin/docker pull ipanousis/armada-nginx-register
-ExecStart=/usr/bin/docker run --privileged --name nginx_register -e CLUSTER_DOMAIN={{ flocker_domain }} -v /var/run/docker.sock:/var/run/docker.sock ipanousis/armada-nginx-register
+ExecStart=/usr/bin/docker run --privileged --name nginx_register -e CLUSTER_DOMAIN={{ flocker_domain }} --net host -v /var/run/docker.sock:/var/run/docker.sock ipanousis/armada-nginx-register
 ExecStop=/usr/bin/docker stop nginx_register
 
 [Install]
