@@ -5,6 +5,10 @@
     unit: redis_register
     private_ipv4_address: "{{ ansible_eth0.ipv4.address }}" # virtualbox: enp0s8, google: eth0
   tasks:
+  - name: create configuration directory
+    shell: mkdir -p /etc/redis-register
+  - name: upload configuration
+    copy: src={{ armada_redis_register_configuration_file }} dest=/etc/redis-register/redis-register.properties
   - name: place the unit
     template: src=./{{ unit }}.service dest=/usr/lib/systemd/system/{{ unit }}.service
   - name: enable and start the unit
